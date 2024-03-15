@@ -4,3 +4,5 @@
 - control de acceso entre hilos
 - paradigma orientado a objetos
 - formato de salida: [Hilo x inicio:x - final:x] :: linea x :: palabra de antes - palabra - palabra de despues
+
+--formato de txt -> iso 8859?

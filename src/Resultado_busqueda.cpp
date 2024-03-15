@@ -1,15 +1,15 @@
 #include <iostream>
-
-
-class Resultado_busqueda {
+#include <string>
+using namespace std;
+class ResultadoBusqueda {
     private:
-        std::string palabra_anterior;
-        std::string palabra_posterior;
+        string palabraAnterior;
+        string palabraPosterior;
         int linea;
     
     public:
-        Resultado_busqueda(std::string palabra_anterior, std::string palabra_posterior, int linea) : palabra_anterior(palabra_anterior), palabra_posterior(palabra_posterior), linea(linea) {}
+        ResultadoBusqueda(string palabra_anterior, string palabra_posterior, int linea) : palabraAnterior(palabra_anterior), palabraPosterior(palabra_posterior), linea(linea) {}
         void imprimir_resultado() {
-            std::cout << "Palabra anterior: " << palabra_anterior << " Palabra posterior: " << palabra_posterior << " Linea: " << linea << std::endl;
+            cout << "Palabra anterior: " << palabraAnterior << " Palabra posterior: " << palabraPosterior << " Linea: " << linea << endl;
         }
 };
