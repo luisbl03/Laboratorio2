@@ -10,8 +10,11 @@ void Hilo::operator()() const {
         for(int n_linea = 0; getline(archivoStream,linea); n_linea++){
             if(n_linea >= l_inicio and n_linea <= l_fin){
                 vector<string> palabras = ab.separarPorEspacios(linea);
+                cout << "Palabras separadas y ahora eliminar los caracteres especiales\n" << endl;
                 ab.eliminarCaracteresEspeciales(palabras);
+                cout << "Caracteres especiales eliminados\n" << endl;
                 vector<vector<string>> vectorBusqueda = ab.buscarPalabras(palabras,palabra);
+                cout << "Palabras encontradas\n" << endl;
                 for(vector<string> palabrasEncontradas : vectorBusqueda){
                     ResultadoBusqueda resultado(palabrasEncontradas[0],palabrasEncontradas[1],n_linea); // Check the constructor of ResultadoBusqueda class
                     resultados.push(resultado);

@@ -19,23 +19,23 @@ vector<string> AgenteBuscador::separarPorEspacios(string linea){
 }
 vector<vector<string>> AgenteBuscador::buscarPalabras(vector<string>palabras, string palabra){
     vector<vector<string>> vectorBusqueda;
-    for(int i=0; i < palabras.size();i++){
-        vector<string> palabrasEncontradas;
-        string palabraVector = palabras[i];
-        if(palabraVector == palabra){
-            if((i-1) == -1)
-                palabrasEncontradas.push_back(NULL);
+    for (int i = 0; i < palabras.size(); ++i) {
+        if (palabras[i] == palabra) {
+            vector<string> palabrasEncontradas;
+            if (i - 1 >= 0) // Verificar límite izquierdo
+                palabrasEncontradas.push_back(palabras[i - 1]);
             else
-                palabrasEncontradas.push_back(palabras[i-1]);
+                palabrasEncontradas.push_back(""); // Otra opción si no hay elemento anterior
 
             palabrasEncontradas.push_back(palabras[i]);
 
-            if((i+1) == palabrasEncontradas.size())
-                palabrasEncontradas.push_back(NULL);
+            if (i + 1 < palabras.size()) // Verificar límite derecho
+                palabrasEncontradas.push_back(palabras[i + 1]);
             else
-                palabrasEncontradas.push_back(palabras[i+1]);
+                palabrasEncontradas.push_back(""); // Otra opción si no hay elemento posterior
+
             vectorBusqueda.push_back(palabrasEncontradas);
         }
     }
-            return vectorBusqueda;
+    return vectorBusqueda;
 }
