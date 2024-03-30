@@ -7,6 +7,8 @@
 #include <queue>
 #include <sstream>
 #include <fstream>
+#include "Resultado_busqueda.hpp"
+#include "Buscador.hpp"
 using namespace std;
 
 class Hilo {

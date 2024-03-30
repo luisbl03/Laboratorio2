@@ -1,6 +1,6 @@
 # Definición de compilador y flags
 CXX = g++
-CXXFLAGS = -std=c++11 -Wall -Wextra
+CXXFLAGS = -std=c++11 -Wall -Wextra -Iinclude
 
 # Definición de directorios
 SRCDIR = src
@@ -13,7 +13,7 @@ SRCS = $(wildcard $(SRCDIR)/*.cpp)
 OBJS = $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(SRCS))
 
 # Nombre del ejecutable
-EXEC = $(BINDIR)/manager
+EXEC = $(BINDIR)/SSOOIIGLE
 
 # Regla para construir el ejecutable y compilar todo
 all: $(EXEC)
