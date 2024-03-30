@@ -15,10 +15,11 @@ class Hilo {
         int l_inicio;
         int l_fin;
         string palabra;
-        queue<ResultadoBusqueda> resultados;
-        ifstream archivo;
-        
+        string archivo;
+
     public:
         Hilo(int id, int l_inicio, int l_fin, string palabra, string n_archivo);
         void operator () () const;
 };
+
+#endif

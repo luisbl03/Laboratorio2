@@ -3,6 +3,7 @@
 #include <thread>
 #include <queue>
 #include <fstream>
+#include "Hilo.hpp"
 
 /*DEFINICION DE FUNCIONES*/
 int contarLineas(std::string fichero);
@@ -15,10 +16,29 @@ int main(int argc, char const *argv[]) {
     }
     std::string fichero = argv[1];
     std::string palabra = argv[2];
-    int n_hilos = std::stoi(argv[3]);
+    int nHilos = std::stoi(argv[3]);
 
-    /*Preparamos la cola de hilos*/
+    /*contamos las lineas para repartirlas entre los hilos*/
+    int lineas = contarLineas(fichero);
+    int nLineasHilo = lineas / nHilos;
+
     std::queue<std::thread> hilos;
+    for (int i = 1; i<= nHilos; i++) {
+        int inicio = (i - 1) * nLineasHilo;
+        int fin = i * nLineasHilo - 1;
+        if (i == nHilos) {
+            fin = lineas - 1;
+        }
+        hilos.push(std::thread(Hilo(i, inicio, fin, palabra, fichero)));
+    }
+
+    while (!hilos.empty()) {
+        hilos.front().join();
+        hilos.pop();
+    }
+
+    return 0;
+
     
 }
 
