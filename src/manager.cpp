@@ -15,11 +15,15 @@ int main(int argc, char const *argv[]) {
         return 1;
     }
     std::string fichero = argv[1];
+    cout << "Fichero: " << fichero << endl;
     std::string palabra = argv[2];
+    cout << "Palabra: " << palabra << endl;
     int nHilos = std::stoi(argv[3]);
+    cout << "Numero de hilos: " << nHilos << endl;
 
     /*contamos las lineas para repartirlas entre los hilos*/
     int lineas = contarLineas(fichero);
+    cout << "Numero de lineas: " << lineas << endl;
     int nLineasHilo = lineas / nHilos;
 
     std::queue<std::thread> hilos;

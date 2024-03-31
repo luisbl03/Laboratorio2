@@ -1,9 +1,10 @@
 #include "Hilo.hpp"
+#include "Resultado_busqueda.hpp"
 Hilo::Hilo(int id, int l_inicio, int l_fin, string palabra, string n_archivo) : 
     id(id), l_inicio(l_inicio), l_fin(l_fin), palabra(palabra), archivo(n_archivo) {}
 // Implementación de la función de operador de llamada
 void Hilo::operator()() const {
-    priority_queue<ResultadoBusqueda, vector<ResultadoBusqueda>, greater<int>> resultados;
+    priority_queue<ResultadoBusqueda> resultados;
     AgenteBuscador ab;
     string linea;
     ifstream archivoStream(archivo); // Open the file
@@ -26,7 +27,6 @@ void Hilo::operator()() const {
         resultados.pop();
     }
 }
- 
 
     
 
