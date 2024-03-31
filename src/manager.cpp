@@ -3,8 +3,9 @@
 #include <thread>
 #include <queue>
 #include <fstream>
-#include "Hilo.hpp"
-
+#include <vector>
+#include <functional>
+#include <algorithm>
 /*DEFINICION DE FUNCIONES*/
 int contarLineas(std::string fichero);
 
@@ -15,35 +16,32 @@ int main(int argc, char const *argv[]) {
         return 1;
     }
     std::string fichero = argv[1];
-    cout << "Fichero: " << fichero << endl;
+    std::cout << "Fichero: " << fichero << std::endl;
     std::string palabra = argv[2];
-    cout << "Palabra: " << palabra << endl;
+    std::cout << "Palabra: " << palabra << std::endl;
     int nHilos = std::stoi(argv[3]);
-    cout << "Numero de hilos: " << nHilos << endl;
-
+    std::cout << "Numero de hilos: " << nHilos << std::endl;
+    std::vector<std::thread> exec_hilos;
+    std::vector<Hilo> hilos;
     /*contamos las lineas para repartirlas entre los hilos*/
     int lineas = contarLineas(fichero);
-    cout << "Numero de lineas: " << lineas << endl;
+    std::cout << "Numero de lineas: " << lineas << std::endl;
     int nLineasHilo = lineas / nHilos;
 
-    std::queue<std::thread> hilos;
     for (int i = 1; i<= nHilos; i++) {
         int inicio = (i - 1) * nLineasHilo;
         int fin = i * nLineasHilo - 1;
         if (i == nHilos) {
             fin = lineas - 1;
         }
-        hilos.push(std::thread(Hilo(i, inicio, fin, palabra, fichero)));
+        hilos.push_back(Hilo(i, inicio, fin, palabra, fichero));
+        exec_hilos.push_back(std::thread(hilos[i]));
     }
-
-    while (!hilos.empty()) {
-        hilos.front().join();
-        hilos.pop();
+    std::for_each(hilos.begin(),hilos.end(),std::mem_fn(&std::thread::join));
+    for(hilo : hilos){
+        hilo.mostrarResultados(palabra);
     }
-
     return 0;
-
-    
 }
 
 int contarLineas(std::string fichero) {

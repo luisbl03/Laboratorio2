@@ -14,17 +14,23 @@ void Hilo::operator()() const {
                 ab.eliminarCaracteresEspeciales(palabras);
                 vector<vector<string>> vectorBusqueda = ab.buscarPalabras(palabras,palabra);
                 for(vector<string> palabrasEncontradas : vectorBusqueda){
-                    ResultadoBusqueda resultado(palabrasEncontradas[0],palabrasEncontradas[1],n_linea); // Check the constructor of ResultadoBusqueda class
+                    ResultadoBusqueda resultado(id,palabrasEncontradas[0],palabrasEncontradas[2],n_linea + 1); // Check the constructor of ResultadoBusqueda class
                     resultados.push(resultado);
                 }
             }      
         }
-    archivoStream.close(); // Close the file
-    // Print the results
+    semaforo.lock();
     while(!resultados.empty()){
-        ResultadoBusqueda resultado = resultados.top();
-        cout << "[Hilo " << id << " inicio: " << l_inicio << " fin:" << l_fin << "] :: linea " << resultado.getLinea() << " :: ..." << resultado.getPalabraAnterior() << " " << palabra << " " << resultado.getPalabraPosterior() << "..." << endl;
+        busquedaFinal.push(resultados.top());
         resultados.pop();
+    }
+    semaforo.unlock();
+    archivoStream.close(); // Close the file
+}
+void Hilo::mostrarResultadosHilo(string palabra){
+    while(!busquedaFinal.empty()){
+        ResultadoBusqueda resultado = busquedaFinal.front();
+        cout << " :: línea " << resultado.getLinea() << " :: ... " << resultado.getPalabraAnterior() << " " << palabra << " " << resultado.getPalabraPosterior() << " ..." << endl;
     }
 }
 

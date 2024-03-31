@@ -19,7 +19,7 @@ vector<string> AgenteBuscador::separarPorEspacios(string linea){
 }
 vector<vector<string>> AgenteBuscador::buscarPalabras(vector<string>palabras, string palabra){
     vector<vector<string>> vectorBusqueda;
-    for (int i = 0; i < palabras.size(); ++i) {
+    for (int i = 0; i < palabras.size(); i++) {
         if (palabras[i] == palabra) {
             vector<string> palabrasEncontradas;
             if (i - 1 >= 0) // Verificar límite izquierdo
