@@ -6,6 +6,7 @@
 #include <vector>
 #include <functional>
 #include <algorithm>
+#include "Hilo.hpp"
 /*DEFINICION DE FUNCIONES*/
 int contarLineas(std::string fichero);
 
@@ -34,13 +35,9 @@ int main(int argc, char const *argv[]) {
         if (i == nHilos) {
             fin = lineas - 1;
         }
-        hilos.push_back(Hilo(i, inicio, fin, palabra, fichero));
-        exec_hilos.push_back(std::thread(hilos[i]));
+        exec_hilos.push_back(std::thread(Hilo(i, inicio, fin, palabra, fichero)));
     }
-    std::for_each(hilos.begin(),hilos.end(),std::mem_fn(&std::thread::join));
-    for(hilo : hilos){
-        hilo.mostrarResultados(palabra);
-    }
+    std::for_each(exec_hilos.begin(),exec_hilos.end(),std::mem_fn(&std::thread::join));
     return 0;
 }
 
