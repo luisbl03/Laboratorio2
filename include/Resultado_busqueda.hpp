@@ -13,7 +13,9 @@ class ResultadoBusqueda {
     
     public:
         ResultadoBusqueda(string palabra_anterior, string palabra_posterior, int linea);
-        void imprimir_resultado();
+        string getPalabraAnterior();
+        string getPalabraPosterior();
+        int getLinea();
 };
 
 #endif
