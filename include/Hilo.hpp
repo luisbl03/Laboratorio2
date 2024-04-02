@@ -12,11 +12,11 @@
 using namespace std;
 class Hilo {
     private:
+        std::priority_queue<ResultadoBusqueda>& resultadoBusquedaFinal;
         int id;
         int l_inicio;
         int l_fin;
         static std::mutex semaforo;
-        std::priority_queue<ResultadoBusqueda>& resultadoBusquedaFinal;
         string palabra;
         string archivo;
         void buscar(priority_queue<ResultadoBusqueda>& resultados);

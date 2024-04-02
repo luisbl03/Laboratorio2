@@ -1,4 +1,6 @@
 #include "Buscador.hpp"
+
+/*Funcion usada para eliminar los diferentes caraceteres especiales del texto*/
 void AgenteBuscador::eliminarCaracteresEspeciales(vector<string>& s){
     string caracteresAEliminar = ",;.:()¿?!\"";
     for(auto& str : s){
@@ -9,6 +11,7 @@ void AgenteBuscador::eliminarCaracteresEspeciales(vector<string>& s){
         str.end());
     }
 }
+/*Funcion para separar por espacios las palabras, devuelve las palabras separadas*/
 vector<string> AgenteBuscador::separarPorEspacios(string linea){
     vector<string> palabras;
     istringstream division(linea);
@@ -17,9 +20,10 @@ vector<string> AgenteBuscador::separarPorEspacios(string linea){
         palabras.push_back(l_palabra);
     return palabras;
 }
+
+/*Funcion para buscar las palabras anterior, posterior y buscada, devuelve los resultados*/
 vector<vector<string>> AgenteBuscador::buscarPalabras(vector<string>palabras, string palabra){
     vector<vector<string>> vectorBusqueda;
-    int counter = 0;
     for (int i = 0; i < palabras.size(); i++) {
             if (palabras[i].compare(palabra) == 0) {
                 vector<string> palabrasEncontradas;

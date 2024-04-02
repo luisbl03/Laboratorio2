@@ -16,6 +16,8 @@ void Hilo::operator() (){
     buscar(resultados);
     insertarCola(resultados);
 }
+
+/*Funcion que se encarga de la busqueda de la palabra*/
 void Hilo::buscar(priority_queue<ResultadoBusqueda>& resultados){
     AgenteBuscador ab;
     string linea;
@@ -33,6 +35,7 @@ void Hilo::buscar(priority_queue<ResultadoBusqueda>& resultados){
         }
     archivoStream.close();
 }
+/*Funcion que introduce los resultados obtenidos en la cola de resultados finales mediante exclusion mutua, usando un mutex*/
 void Hilo::insertarCola(priority_queue<ResultadoBusqueda>& resultados){
     semaforo.lock();
     while(!resultados.empty()){

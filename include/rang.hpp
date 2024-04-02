@@ -1,3 +1,6 @@
+/*LIBRERIA IMPORTADA DE GITHUB. Enlace: https://github.com/agauniyal/rang*/
+/*Libreria para dar color a la salida*/
+
 #ifndef RANG_DOT_HPP
 #define RANG_DOT_HPP
 

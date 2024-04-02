@@ -10,6 +10,7 @@
 #include "Hilo.hpp"
 #include "rang.hpp"
 #include "Resultado_busqueda.hpp"
+
 /*DEFINICION DE FUNCIONES*/
 int contarLineas(std::string fichero);
 void mostrarResultados(priority_queue<ResultadoBusqueda> resultados, vector<Hilo> hilos);
@@ -19,7 +20,7 @@ void mostrarResultados(priority_queue<ResultadoBusqueda> resultados, vector<Hilo
 int main(int argc, char const *argv[]) {
     /*comprobamos el numero de parametros que se le introduce al programa*/
     if (argc != 4) {
-        std::cout << "Error: se esperaban 4 parametros" << std::endl;
+        std::cout << rang::fg::red<< "Error: se esperaban 3 parametros: archivo palabra nº hilos  "<< rang::fg::reset << std::endl;
         return 1;
     }
     std::priority_queue<ResultadoBusqueda> resultados;
@@ -60,8 +61,14 @@ int main(int argc, char const *argv[]) {
     return 0;
 }
 
+/*Funcion para contar las lineas del fichero, las devuelve*/
 int contarLineas(std::string fichero) {
     std::ifstream archivo(fichero);
+    /*comprobamos que el archivo existe*/
+    if (!archivo) {
+        std::cout << rang::fg::red << "Error: no se ha podido abrir el archivo" << rang::fg::reset << std::endl;
+        exit(1);
+    }
     std::string linea;
     int lineas = 0;
     while (std::getline(archivo, linea)) {
@@ -69,6 +76,8 @@ int contarLineas(std::string fichero) {
     }
     return lineas;
 }
+
+/*Funcion para mostrar por pantalla los resultados*/
 void mostrarResultados(priority_queue<ResultadoBusqueda> resultados, vector<Hilo> hilos){
     while(!resultados.empty()){
         for (Hilo hilo : hilos) {
