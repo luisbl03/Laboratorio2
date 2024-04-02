@@ -16,14 +16,18 @@ class Hilo {
         int l_inicio;
         int l_fin;
         static std::mutex semaforo;
-        static std::queue<ResultadoBusqueda> busquedaFinal;
+        std::priority_queue<ResultadoBusqueda>& resultadoBusquedaFinal;
         string palabra;
         string archivo;
+        void buscar(priority_queue<ResultadoBusqueda>& resultados);
+        void insertarCola(priority_queue<ResultadoBusqueda>& resultados);
     public:
-       
-        Hilo(int id, int l_inicio, int l_fin, string palabra, string n_archivo);
-        void operator () () const;
-        static void mostrarResultados(vector<Hilo> hilos);
+        int getLineaInicio();
+        int getLineaFin();
+        int getId();
+        string getPalabra();
+        Hilo(priority_queue<ResultadoBusqueda>& rb_final,int id, int l_inicio, int l_fin, string palabra, string n_archivo);
+        void operator () ();
 };
 
 #endif
