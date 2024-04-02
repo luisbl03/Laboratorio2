@@ -14,7 +14,6 @@ class AgenteBuscador {
         void eliminarCaracteresEspeciales(vector<string>& s);
         vector<string> separarPorEspacios(string linea);
         vector<vector<string>> buscarPalabras(vector<string> palabras,string palabra);
-        string convertirMinuscula(string str);
 };
 
 #endif

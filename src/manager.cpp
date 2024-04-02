@@ -6,11 +6,14 @@
 #include <vector>
 #include <functional>
 #include <algorithm>
+#include <random>
 #include "Hilo.hpp"
+#include "rang.hpp"
 #include "Resultado_busqueda.hpp"
 /*DEFINICION DE FUNCIONES*/
 int contarLineas(std::string fichero);
 void mostrarResultados(priority_queue<ResultadoBusqueda> resultados, vector<Hilo> hilos);
+
 
 
 int main(int argc, char const *argv[]) {
@@ -21,16 +24,18 @@ int main(int argc, char const *argv[]) {
     }
     std::priority_queue<ResultadoBusqueda> resultados;
     std::string fichero = argv[1];
+    std::cout<< rang::fg::yellow;
+    std::cout << "";
     std::cout << "Fichero: " << fichero << std::endl;
     std::string palabra = argv[2];
     std::cout << "Palabra: " << palabra << std::endl;
     int nHilos = std::stoi(argv[3]);
     std::cout << "Numero de hilos: " << nHilos << std::endl;
+    std::cout << rang::fg::reset;
     std::vector<Hilo> hilos;
     std::vector<std::thread> exec_hilos;
     /*contamos las lineas para repartirlas entre los hilos*/
     int lineas = contarLineas(fichero);
-    std::cout << "Numero de lineas: " << lineas << std::endl;
     int nLineasHilo = lineas / nHilos;
 
     for (int i = 1; i<= nHilos; i++) {
@@ -44,7 +49,13 @@ int main(int argc, char const *argv[]) {
         exec_hilos.push_back(std::thread(h));
     }
     std::for_each(exec_hilos.begin(),exec_hilos.end(),std::mem_fn(&std::thread::join));
-    std::cout << "Tamaño cola resultados: " << resultados.size() << std::endl;
+    if (!resultados.empty()) {
+        cout << rang::fg::green << "Resultados encontrados: " << resultados.size() << rang::fg::reset << endl;
+    }
+    else {
+        cout << rang::fg::red << "No se han encontrado resultados" << rang::fg::reset << endl;
+        return 1;
+    }
     mostrarResultados(resultados,hilos);
     return 0;
 }
@@ -64,9 +75,13 @@ void mostrarResultados(priority_queue<ResultadoBusqueda> resultados, vector<Hilo
             while (!resultados.empty()) {
                 ResultadoBusqueda resultado = resultados.top();
                 if ((resultado.getLinea() >= hilo.getLineaInicio()) and (resultado.getLinea() <= hilo.getLineaFin())) {
+                    cout << rang::fg::cyan; 
                     cout << "[Hilo " << hilo.getId() << " inicio:" << hilo.getLineaInicio() << " fin:" << hilo.getLineaFin() << "] ";
+                    cout << rang::fg::reset;
                     cout << " :: línea " << resultado.getLinea() << " :: ";
-                    cout << "..." << resultado.getPalabraAnterior() << " " << hilo.getPalabra() <<" " << resultado.getPalabraPosterior() << "..." << endl;
+                    cout << "..." << resultado.getPalabraAnterior() << " " ;
+                    cout << rang::fg::green << hilo.getPalabra() << rang::fg::reset << " ";
+                    cout << resultado.getPalabraPosterior() << "..." << endl;
                     resultados.pop();
                 } else {
                     break;
@@ -75,3 +90,4 @@ void mostrarResultados(priority_queue<ResultadoBusqueda> resultados, vector<Hilo
         }
     }
 }
+
